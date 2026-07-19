@@ -7,9 +7,9 @@
 // CONFIGURATION
 // ============================================
 const CONFIG = {
-  SHEET_ID: localStorage.getItem('sheetId') || 'YOUR_SHEET_ID_HERE',
-  GAS_URL: localStorage.getItem('gasUrl') || 'YOUR_GAS_WEB_APP_URL_HERE',
-  CURRENCY: localStorage.getItem('currency') || '$',
+  SHEET_ID: localStorage.getItem('sheetId') || '1oCjCbmSdIf2wpMKogFgzfgNVpOmuQKw6eE7Tt1nk7lU',
+  GAS_URL: localStorage.getItem('gasUrl') || 'https://script.google.com/macros/s/AKfycbx-wkPK7CXEJHNZiK6LajJsclAw7hGBv1mCw-3hpndBZuXxxZC8U5yiyI4M4JDPJ08yQw/exec',
+  CURRENCY: localStorage.getItem('currency') || '₹',
   TAX_RATE: parseFloat(localStorage.getItem('taxRate')) || 8,
   RESTAURANT_NAME: localStorage.getItem('restName') || 'My Restaurant'
 };
