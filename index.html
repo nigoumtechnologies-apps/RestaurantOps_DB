@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>RestaurantOps Pro</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -11,124 +11,149 @@
   <div id="app">
     <!-- Mobile Header -->
     <div class="mobile-header">
-      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-      <h1>🍽️ RestaurantOps</h1>
+      <button class="menu-toggle" id="menuToggle" onclick="toggleSidebar()" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="mobile-brand">
+        <span class="brand-icon">🍽️</span>
+        <span class="brand-text">RestaurantOps</span>
+      </div>
+      <div class="mobile-spacer"></div>
     </div>
 
     <!-- Sidebar Navigation -->
-    <nav class="sidebar" id="sidebar">
+    <aside class="sidebar" id="sidebar">
       <div class="sidebar-brand">
-        <h1>🍽️ RestaurantOps</h1>
-        <p class="version">v2.0 Free</p>
+        <div class="brand-row">
+          <span class="brand-icon">🍽️</span>
+          <div class="brand-text-block">
+            <h1>RestaurantOps</h1>
+            <p class="version">v2.0 Free</p>
+          </div>
+        </div>
+        <button class="sidebar-close" onclick="toggleSidebar()" aria-label="Close menu">
+          <i class="fas fa-times"></i>
+        </button>
       </div>
 
-      <div class="nav-section">
-        <span class="nav-label">MAIN</span>
-        <a href="#" class="nav-link active" onclick="showSection('dashboard', this)">
-          <i class="fas fa-chart-line"></i> Dashboard
-        </a>
-        <a href="#" class="nav-link" onclick="showSection('orders', this)">
-          <i class="fas fa-receipt"></i> Orders
-          <span class="badge" id="orderBadge">0</span>
-        </a>
-        <a href="#" class="nav-link" onclick="showSection('menu', this)">
-          <i class="fas fa-utensils"></i> Menu
-        </a>
-      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <span class="nav-label">MAIN</span>
+          <a href="#dashboard" class="nav-link active" data-section="dashboard" onclick="return navClick(this, 'dashboard')">
+            <span class="nav-icon"><i class="fas fa-chart-line"></i></span>
+            <span class="nav-text">Dashboard</span>
+          </a>
+          <a href="#orders" class="nav-link" data-section="orders" onclick="return navClick(this, 'orders')">
+            <span class="nav-icon"><i class="fas fa-receipt"></i></span>
+            <span class="nav-text">Orders</span>
+            <span class="badge" id="orderBadge">0</span>
+          </a>
+          <a href="#menu" class="nav-link" data-section="menu" onclick="return navClick(this, 'menu')">
+            <span class="nav-icon"><i class="fas fa-utensils"></i></span>
+            <span class="nav-text">Menu</span>
+          </a>
+        </div>
 
-      <div class="nav-section">
-        <span class="nav-label">OPERATIONS</span>
-        <a href="#" class="nav-link" onclick="showSection('inventory', this)">
-          <i class="fas fa-boxes"></i> Inventory
-          <span class="badge alert" id="stockBadge">0</span>
-        </a>
-        <a href="#" class="nav-link" onclick="showSection('staff', this)">
-          <i class="fas fa-users"></i> Staff
-        </a>
-        <a href="#" class="nav-link" onclick="showSection('expenses', this)">
-          <i class="fas fa-wallet"></i> Expenses
-        </a>
-      </div>
+        <div class="nav-section">
+          <span class="nav-label">OPERATIONS</span>
+          <a href="#inventory" class="nav-link" data-section="inventory" onclick="return navClick(this, 'inventory')">
+            <span class="nav-icon"><i class="fas fa-boxes"></i></span>
+            <span class="nav-text">Inventory</span>
+            <span class="badge alert" id="stockBadge">0</span>
+          </a>
+          <a href="#staff" class="nav-link" data-section="staff" onclick="return navClick(this, 'staff')">
+            <span class="nav-icon"><i class="fas fa-users"></i></span>
+            <span class="nav-text">Staff</span>
+          </a>
+          <a href="#expenses" class="nav-link" data-section="expenses" onclick="return navClick(this, 'expenses')">
+            <span class="nav-icon"><i class="fas fa-wallet"></i></span>
+            <span class="nav-text">Expenses</span>
+          </a>
+        </div>
 
-      <div class="nav-section">
-        <span class="nav-label">ANALYTICS</span>
-        <a href="#" class="nav-link" onclick="showSection('reports', this)">
-          <i class="fas fa-file-alt"></i> Reports
-        </a>
-        <a href="#" class="nav-link" onclick="showSection('settings', this)">
-          <i class="fas fa-cog"></i> Settings
-        </a>
-      </div>
+        <div class="nav-section">
+          <span class="nav-label">ANALYTICS</span>
+          <a href="#reports" class="nav-link" data-section="reports" onclick="return navClick(this, 'reports')">
+            <span class="nav-icon"><i class="fas fa-file-alt"></i></span>
+            <span class="nav-text">Reports</span>
+          </a>
+          <a href="#settings" class="nav-link" data-section="settings" onclick="return navClick(this, 'settings')">
+            <span class="nav-icon"><i class="fas fa-cog"></i></span>
+            <span class="nav-text">Settings</span>
+          </a>
+        </div>
+      </nav>
 
       <div class="sidebar-footer">
         <div class="sync-status" id="syncStatus">
-          <span class="dot online"></span> Connected
+          <span class="sync-dot"></span>
+          <span class="sync-text">Connected</span>
         </div>
-        <p>© 2026 RestaurantOps</p>
+        <p class="copyright">© 2026 RestaurantOps</p>
       </div>
-    </nav>
+    </aside>
 
     <!-- Overlay for mobile -->
-    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+    <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
 
     <!-- Main Content -->
-    <main class="main-content">
+    <main class="main-content" id="mainContent">
 
       <!-- DASHBOARD SECTION -->
-      <div id="dashboard" class="section active">
+      <section id="dashboard" class="section active">
         <div class="page-header">
           <h2>📊 Live Dashboard</h2>
           <div class="header-actions">
             <button class="btn btn-outline" onclick="refreshAll()"><i class="fas fa-sync"></i> Refresh</button>
-            <span class="live-time" id="liveTime">--:--</span>
+            <span class="live-time" id="liveTime">--:--:--</span>
           </div>
         </div>
 
         <div class="stats-grid">
           <div class="stat-card sales">
-            <div class="stat-icon"><i class="fas fa-dollar-sign"></i></div>
+            <div class="stat-icon-wrap"><i class="fas fa-dollar-sign"></i></div>
             <div class="stat-info">
-              <h3>Today's Sales</h3>
+              <h3>TODAY'S SALES</h3>
               <p id="todaySales">$0.00</p>
               <span class="trend up" id="salesTrend"><i class="fas fa-arrow-up"></i> +0%</span>
             </div>
           </div>
           <div class="stat-card orders">
-            <div class="stat-icon"><i class="fas fa-receipt"></i></div>
+            <div class="stat-icon-wrap"><i class="fas fa-receipt"></i></div>
             <div class="stat-info">
-              <h3>Active Orders</h3>
+              <h3>ACTIVE ORDERS</h3>
               <p id="activeOrders">0</p>
               <span class="trend" id="ordersTrend">Processing</span>
             </div>
           </div>
           <div class="stat-card inventory">
-            <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
+            <div class="stat-icon-wrap"><i class="fas fa-exclamation-triangle"></i></div>
             <div class="stat-info">
-              <h3>Low Stock</h3>
+              <h3>LOW STOCK</h3>
               <p id="lowStock">0</p>
               <span class="trend down" id="stockTrend"><i class="fas fa-arrow-down"></i> Alert</span>
             </div>
           </div>
           <div class="stat-card staff">
-            <div class="stat-icon"><i class="fas fa-user-clock"></i></div>
+            <div class="stat-icon-wrap"><i class="fas fa-user-clock"></i></div>
             <div class="stat-info">
-              <h3>Staff On Duty</h3>
+              <h3>STAFF ON DUTY</h3>
               <p id="staffOnDuty">0</p>
               <span class="trend" id="staffTrend">Scheduled</span>
             </div>
           </div>
           <div class="stat-card profit">
-            <div class="stat-icon"><i class="fas fa-chart-pie"></i></div>
+            <div class="stat-icon-wrap"><i class="fas fa-chart-pie"></i></div>
             <div class="stat-info">
-              <h3>Net Profit</h3>
+              <h3>NET PROFIT</h3>
               <p id="netProfit">$0.00</p>
               <span class="trend" id="profitTrend">Today</span>
             </div>
           </div>
           <div class="stat-card customers">
-            <div class="stat-icon"><i class="fas fa-users"></i></div>
+            <div class="stat-icon-wrap"><i class="fas fa-users"></i></div>
             <div class="stat-info">
-              <h3>Customers</h3>
+              <h3>CUSTOMERS</h3>
               <p id="customerCount">0</p>
               <span class="trend" id="customerTrend">Served</span>
             </div>
@@ -155,7 +180,7 @@
               <h3><i class="fas fa-fire"></i> Top Selling Items</h3>
             </div>
             <div id="topItemsList" class="top-items-list">
-              <div class="empty-state">Loading...</div>
+              <div class="empty-state"><i class="fas fa-utensils"></i><p>Loading...</p></div>
             </div>
           </div>
         </div>
@@ -163,16 +188,16 @@
         <div class="card">
           <div class="card-header">
             <h3><i class="fas fa-list"></i> Recent Orders</h3>
-            <a href="#" onclick="showSection('orders', null); return false;">View All →</a>
+            <a href="#orders" onclick="navTo('orders'); return false;">View All →</a>
           </div>
           <div id="recentOrders" class="recent-orders">
-            <div class="empty-state">Loading orders...</div>
+            <div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Loading orders...</p></div>
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- ORDERS SECTION -->
-      <div id="orders" class="section">
+      <section id="orders" class="section">
         <div class="page-header">
           <h2>📝 Order Management</h2>
           <button class="btn btn-primary" onclick="openOrderModal()"><i class="fas fa-plus"></i> New Order</button>
@@ -194,15 +219,15 @@
 
         <div class="orders-kanban" id="ordersKanban">
           <div class="kanban-column">
-            <h4><span class="dot preparing"></span> Preparing <span id="countPrep">0</span></h4>
+            <h4><span class="status-dot preparing"></span> Preparing <span class="kanban-count" id="countPrep">0</span></h4>
             <div class="kanban-items" id="kanbanPrep"></div>
           </div>
           <div class="kanban-column">
-            <h4><span class="dot ready"></span> Ready <span id="countReady">0</span></h4>
+            <h4><span class="status-dot ready"></span> Ready <span class="kanban-count" id="countReady">0</span></h4>
             <div class="kanban-items" id="kanbanReady"></div>
           </div>
           <div class="kanban-column">
-            <h4><span class="dot served"></span> Served <span id="countServed">0</span></h4>
+            <h4><span class="status-dot served"></span> Served <span class="kanban-count" id="countServed">0</span></h4>
             <div class="kanban-items" id="kanbanServed"></div>
           </div>
         </div>
@@ -228,10 +253,10 @@
             </table>
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- MENU SECTION -->
-      <div id="menu" class="section">
+      <section id="menu" class="section">
         <div class="page-header">
           <h2>🍕 Menu Management</h2>
           <button class="btn btn-primary" onclick="openMenuModal()"><i class="fas fa-plus"></i> Add Item</button>
@@ -248,10 +273,10 @@
         </div>
 
         <div class="menu-grid" id="menuGrid"></div>
-      </div>
+      </section>
 
       <!-- INVENTORY SECTION -->
-      <div id="inventory" class="section">
+      <section id="inventory" class="section">
         <div class="page-header">
           <h2>📦 Inventory</h2>
           <button class="btn btn-primary" onclick="openInventoryModal()"><i class="fas fa-plus"></i> Add Item</button>
@@ -287,10 +312,10 @@
             </table>
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- STAFF SECTION -->
-      <div id="staff" class="section">
+      <section id="staff" class="section">
         <div class="page-header">
           <h2>👥 Staff Management</h2>
           <button class="btn btn-primary" onclick="openStaffModal()"><i class="fas fa-plus"></i> Add Staff</button>
@@ -318,16 +343,16 @@
             </table>
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- EXPENSES SECTION -->
-      <div id="expenses" class="section">
+      <section id="expenses" class="section">
         <div class="page-header">
           <h2>💰 Expenses</h2>
           <button class="btn btn-primary" onclick="openExpenseModal()"><i class="fas fa-plus"></i> Add Expense</button>
         </div>
 
-        <div class="stats-grid" style="grid-template-columns:repeat(3,1fr);">
+        <div class="stats-grid three-col">
           <div class="stat-card">
             <h3>Total Expenses</h3>
             <p id="totalExpenses">$0.00</p>
@@ -362,10 +387,10 @@
             </table>
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- REPORTS SECTION -->
-      <div id="reports" class="section">
+      <section id="reports" class="section">
         <div class="page-header">
           <h2>📈 Reports & Analytics</h2>
           <button class="btn btn-outline" onclick="generateReport()"><i class="fas fa-file-export"></i> Export PDF</button>
@@ -388,13 +413,13 @@
             <input type="date" id="reportDate" onchange="loadDailyReport()">
           </div>
           <div id="dailyReport" class="report-content">
-            <div class="empty-state">Select a date to view report</div>
+            <div class="empty-state"><i class="fas fa-calendar-alt"></i><p>Select a date to view report</p></div>
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- SETTINGS SECTION -->
-      <div id="settings" class="section">
+      <section id="settings" class="section">
         <div class="page-header">
           <h2>⚙️ Settings</h2>
         </div>
@@ -402,93 +427,105 @@
         <div class="settings-grid">
           <div class="card">
             <div class="card-header"><h3>Google Sheets Connection</h3></div>
-            <div class="form-group">
-              <label>Sheet ID</label>
-              <input type="text" id="settingSheetId" placeholder="Enter your Google Sheet ID">
+            <div class="card-body">
+              <div class="form-group">
+                <label>Sheet ID</label>
+                <input type="text" id="settingSheetId" placeholder="Enter your Google Sheet ID">
+                <small>From URL: .../d/<b>SHEET_ID</b>/edit...</small>
+              </div>
+              <div class="form-group">
+                <label>Web App URL</label>
+                <input type="text" id="settingGasUrl" placeholder="Enter Apps Script Web App URL">
+                <small>From Apps Script Deploy → Web App</small>
+              </div>
+              <div class="btn-group">
+                <button class="btn btn-primary" onclick="saveSettings()">Save & Connect</button>
+                <button class="btn btn-outline" onclick="testConnection()">Test Connection</button>
+              </div>
             </div>
-            <div class="form-group">
-              <label>Web App URL</label>
-              <input type="text" id="settingGasUrl" placeholder="Enter Apps Script Web App URL">
-            </div>
-            <button class="btn btn-primary" onclick="saveSettings()">Save & Connect</button>
-            <button class="btn btn-outline" onclick="testConnection()">Test Connection</button>
           </div>
 
           <div class="card">
             <div class="card-header"><h3>Restaurant Info</h3></div>
-            <div class="form-group">
-              <label>Restaurant Name</label>
-              <input type="text" id="restName" placeholder="Your Restaurant Name">
+            <div class="card-body">
+              <div class="form-group">
+                <label>Restaurant Name</label>
+                <input type="text" id="restName" placeholder="Your Restaurant Name">
+              </div>
+              <div class="form-group">
+                <label>Currency</label>
+                <select id="currency">
+                  <option value="$">USD ($)</option>
+                  <option value="€">EUR (€)</option>
+                  <option value="£">GBP (£)</option>
+                  <option value="₹">INR (₹)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Tax Rate (%)</label>
+                <input type="number" id="taxRate" value="8" min="0" max="100">
+              </div>
+              <button class="btn btn-primary" onclick="saveRestaurantInfo()">Save Info</button>
             </div>
-            <div class="form-group">
-              <label>Currency</label>
-              <select id="currency">
-                <option value="$">USD ($)</option>
-                <option value="€">EUR (€)</option>
-                <option value="£">GBP (£)</option>
-                <option value="₹">INR (₹)</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Tax Rate (%)</label>
-              <input type="number" id="taxRate" value="8" min="0" max="100">
-            </div>
-            <button class="btn btn-primary" onclick="saveRestaurantInfo()">Save Info</button>
           </div>
 
           <div class="card">
             <div class="card-header"><h3>Data Management</h3></div>
-            <button class="btn btn-outline" onclick="exportAllData()" style="margin-bottom:10px;width:100%;">
-              <i class="fas fa-download"></i> Export All Data (JSON)
-            </button>
-            <button class="btn btn-outline" onclick="importData()" style="margin-bottom:10px;width:100%;">
-              <i class="fas fa-upload"></i> Import Data
-            </button>
-            <button class="btn btn-danger" onclick="clearAllData()" style="width:100%;">
-              <i class="fas fa-trash"></i> Clear All Local Data
-            </button>
+            <div class="card-body">
+              <button class="btn btn-outline btn-block" onclick="exportAllData()" style="margin-bottom:10px;">
+                <i class="fas fa-download"></i> Export All Data (JSON)
+              </button>
+              <button class="btn btn-outline btn-block" onclick="importData()" style="margin-bottom:10px;">
+                <i class="fas fa-upload"></i> Import Data
+              </button>
+              <button class="btn btn-danger btn-block" onclick="clearAllData()">
+                <i class="fas fa-trash"></i> Clear All Local Data
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </main>
   </div>
 
-  <!-- MODALS -->
+  <!-- ==================== MODALS ==================== -->
 
   <!-- New Order Modal -->
   <div class="modal" id="orderModal">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>New Order</h3>
+        <h3><i class="fas fa-plus-circle"></i> New Order</h3>
         <button class="close-btn" onclick="closeModal('orderModal')">&times;</button>
       </div>
       <div class="modal-body">
-        <div class="form-group">
-          <label>Table Number</label>
-          <input type="text" id="orderTable" placeholder="e.g., T5 or 12">
-        </div>
-        <div class="form-group">
-          <label>Customer Name (Optional)</label>
-          <input type="text" id="orderCustomer" placeholder="Customer name">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Table Number *</label>
+            <input type="text" id="orderTable" placeholder="e.g., T5 or 12">
+          </div>
+          <div class="form-group">
+            <label>Customer Name</label>
+            <input type="text" id="orderCustomer" placeholder="Optional">
+          </div>
         </div>
         <div class="menu-selector">
-          <h4>Select Items</h4>
+          <h4><i class="fas fa-utensils"></i> Select Items</h4>
           <div class="category-tabs" id="orderCategoryTabs"></div>
           <div class="menu-items-grid" id="orderMenuItems"></div>
         </div>
         <div class="order-summary" id="orderSummary">
-          <h4>Order Summary</h4>
+          <h4><i class="fas fa-shopping-cart"></i> Order Summary</h4>
           <div id="orderItemsList"></div>
           <div class="order-total">
-            <span>Subtotal: <b id="subTotal">$0.00</b></span>
-            <span>Tax: <b id="taxAmount">$0.00</b></span>
-            <span class="grand-total">Total: <b id="grandTotal">$0.00</b></span>
+            <div class="total-row"><span>Subtotal:</span><b id="subTotal">$0.00</b></div>
+            <div class="total-row"><span>Tax (${CONFIG.TAX_RATE}%):</span><b id="taxAmount">$0.00</b></div>
+            <div class="total-row grand"><span>Total:</span><b id="grandTotal">$0.00</b></div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
         <button class="btn btn-outline" onclick="closeModal('orderModal')">Cancel</button>
-        <button class="btn btn-primary" onclick="submitOrder()" id="submitOrderBtn">
+        <button class="btn btn-primary" onclick="submitOrder()" id="submitOrderBtn" disabled>
           <i class="fas fa-paper-plane"></i> Place Order
         </button>
       </div>
@@ -499,7 +536,7 @@
   <div class="modal" id="menuModal">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 id="menuModalTitle">Add Menu Item</h3>
+        <h3 id="menuModalTitle"><i class="fas fa-plus-circle"></i> Add Menu Item</h3>
         <button class="close-btn" onclick="closeModal('menuModal')">&times;</button>
       </div>
       <div class="modal-body">
@@ -538,7 +575,7 @@
             <label>Stock Quantity</label>
             <input type="number" id="menuItemStock" value="100" min="0">
           </div>
-          <div class="form-group">
+          <div class="form-group form-inline">
             <label>Available</label>
             <label class="toggle-switch">
               <input type="checkbox" id="menuItemAvailable" checked>
@@ -558,7 +595,7 @@
   <div class="modal" id="inventoryModal">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>Add Inventory Item</h3>
+        <h3><i class="fas fa-plus-circle"></i> Add Inventory Item</h3>
         <button class="close-btn" onclick="closeModal('inventoryModal')">&times;</button>
       </div>
       <div class="modal-body">
@@ -606,7 +643,7 @@
   <div class="modal" id="staffModal">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>Add Staff Member</h3>
+        <h3><i class="fas fa-plus-circle"></i> Add Staff Member</h3>
         <button class="close-btn" onclick="closeModal('staffModal')">&times;</button>
       </div>
       <div class="modal-body">
@@ -664,7 +701,7 @@
   <div class="modal" id="expenseModal">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>Add Expense</h3>
+        <h3><i class="fas fa-plus-circle"></i> Add Expense</h3>
         <button class="close-btn" onclick="closeModal('expenseModal')">&times;</button>
       </div>
       <div class="modal-body">
@@ -692,7 +729,7 @@
             <input type="number" id="expAmount" placeholder="0.00" step="0.01">
           </div>
           <div class="form-group">
-            <label>Receipt (Optional)</label>
+            <label>Receipt</label>
             <input type="file" id="expReceipt" accept="image/*,.pdf">
           </div>
         </div>
